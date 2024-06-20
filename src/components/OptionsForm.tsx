@@ -41,7 +41,7 @@ function OptionsForm(){
         <StyledSection>
             <StyledBtn onClick={() => regenerateArray(arrayPusher(randomNumberInRange(screenCalculation()))as any)}>GENERATE NEW ARRAY</StyledBtn>
             <label>Set the numbers of records</label>
-            <SyledSelector onChange={(e) => handleChange(e.target.value)}>
+            <SyledSelector defaultValue={array.length-1} onChange={(e) => handleChange(e.target.value)}>
                 {arr ? arr.map((option:number, key:number) =>{
                     return <StyledOption value={option} key={key}>{option}</StyledOption>
                 }): null}
