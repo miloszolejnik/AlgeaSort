@@ -1,47 +1,44 @@
 
-import { useState, useEffect } from "react"
+import { useContext, useEffect } from "react"
+import {ArrayContext} from '../App'
 import styled from "styled-components";
-
+import { screenCalculation, arrayPusher, randomNumberInRange } from "../util/utils";
 function AlgorythmDisplay(){
-    const [array, setArray] = useState([1,2]) as any;
-    function randomNumberInRange(min:number, max:number) {
-        // 👇️ Get the number between min (inclusive) and max (inclusive)
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
-
-    function ArrayPusher(length:number){
-        let arr = []
-        for(let i = 0; i<length; i++ ){
-            arr.push(randomNumberInRange(3,10))
-        }
-        setArray(arr)
-    }
+    
+    const {array, setArray}:any = useContext(ArrayContext)
+    
+    
+    // push numbers between 3 and selected value into array
+    // set initial value of the array between 3 and allowed max
     useEffect(() =>{
-       let initialLength = randomNumberInRange(3,10);
-       ArrayPusher(initialLength);
+       let initialLength = randomNumberInRange(3,screenCalculation());
+       setArray(arrayPusher(initialLength));
     }, [])
 
     return(
-        <StyledContainer>
-            {array.map((value:number, key:number)=>{
-                return(
-                    <Bar style={{height: `${value}%`}} key={key}>{value}</Bar>
-                )
-            })}  
-        </StyledContainer>
+        <section>
+            <StyledContainer>
+                {array.map((value:number, key:number)=>{
+                    return(
+                        <Bar style={{height: `${value}%`}} key={key}>{value}</Bar>
+                    )
+                })}  
+            </StyledContainer>
+        </section>
     )
 }
 
 const StyledContainer = styled.div`
     height: 80vh;
-    width: 100vw;
+    max-width: 100vw;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: end;
+    padding: 0 1rem;
 `
 const Bar = styled.div`
     display: flex;
+    justify-content: center;
     flex-grow: 1;
     background-color: rgb(153, 228, 163);
 `

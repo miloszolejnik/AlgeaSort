@@ -2,11 +2,22 @@ import './App.css';
 import styled from 'styled-components';
 import Nav from './components/Nav';
 import AlgorythmDisplay from './components/AlogorythmDisplay';
+import OptionsForm from './components/OptionsForm';
+import { useState, createContext } from 'react';
+
+export const ArrayContext = createContext({})
+
 function App() {
+
+  const [array, setArray] = useState([]) as any;
+
   return (
     <StyledApp className="App">
-      <Nav />
-      <AlgorythmDisplay />
+      <ArrayContext.Provider value={{array: array, setArray: setArray}}>
+        <Nav />
+        <AlgorythmDisplay />
+        <OptionsForm />
+      </ArrayContext.Provider>
     </StyledApp>
   );
 }
