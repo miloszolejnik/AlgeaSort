@@ -1,10 +1,12 @@
 import './App.css';
 import styled from 'styled-components';
 import Nav from './components/Nav';
+import AlgorythmDisplay from './components/AlogorythmDisplay';
 function App() {
   return (
     <StyledApp className="App">
       <Nav />
+      <AlgorythmDisplay />
     </StyledApp>
   );
 }
