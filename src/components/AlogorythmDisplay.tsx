@@ -2,18 +2,15 @@
 import { useContext, useEffect } from "react"
 import {ArrayContext} from '../App'
 import styled from "styled-components";
-import { screenCalculation, arrayPusher, randomNumberInRange } from "../util/utils";
+import { ArrayGenerator, screenCalculation, randomNumberInRange } from "../util/utils";
 function AlgorythmDisplay(){
+    //load context
+    const {array, setArray}:any = useContext(ArrayContext);
     
-    const {array, setArray}:any = useContext(ArrayContext)
-    
-    
-    // push numbers between 3 and selected value into array
-    // set initial value of the array between 3 and allowed max
+    //initial array
     useEffect(() =>{
-       let initialLength = randomNumberInRange(3,screenCalculation());
-       setArray(arrayPusher(initialLength));
-    }, [])
+        setArray(ArrayGenerator(screenCalculation()));
+    }, []);
 
     return(
         <section>
@@ -34,7 +31,6 @@ const StyledContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: end;
-    padding: 0 1rem;
 `
 const Bar = styled.div`
     display: flex;

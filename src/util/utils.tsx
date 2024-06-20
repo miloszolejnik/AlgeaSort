@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-import {ArrayContext} from '../App'
 
 // calculate maximum elements that can fit on the screen
 export function screenCalculation(){
@@ -7,15 +5,20 @@ export function screenCalculation(){
     return screen
 }
 
+// 👇️ Get the number between min (inclusive) and max (inclusive)
+export function randomNumberInRange( max:number) {
+    return Math.floor(Math.random() * (max - 3 + 1)) + 3;
+  }
+
+    // push numbers between 3 and selected value into array
 export function arrayPusher(length:number){
     let arr = []
     for(let i = 0; i<length; i++ ){
-        arr.push(randomNumberInRange(3,100))
+        arr.push(randomNumberInRange(100) as number)
     }
     return arr
 }
 
-export function randomNumberInRange(min:number, max:number) {
-    // 👇️ Get the number between min (inclusive) and max (inclusive)
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+export function ArrayGenerator(arrLength:number){
+    return(arrayPusher(arrLength))
+}
