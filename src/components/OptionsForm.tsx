@@ -1,11 +1,12 @@
 import styled from "styled-components"
-import { ArrayGenerator, screenCalculation, randomNumberInRange } from "../util/utils"
+import { arrayPusher, screenCalculation, randomNumberInRange } from "../util/utils"
+import { bubble } from "../util/algorithms"
 import { useContext } from "react"
 import { ArrayContext } from "../App"
 
 function OptionsForm(){
     //load context
-    const {array, setArray}:any = useContext(ArrayContext)
+    const {array, setArray, forceUpdate}:any = useContext(ArrayContext)
 
     function regenerateArray(value:number){
         setArray(value)
@@ -25,18 +26,27 @@ function OptionsForm(){
 
     function handleChange(e:any | number){
         const newValue =+ (e)
-        setArray(ArrayGenerator(newValue));
+        setArray(arrayPusher(newValue));
+    }
+
+    function sortHandler(arr:any){
+        console.log('im sorting');
+        const sorted = bubble(arr)
+        console.log(sorted)
+        setArray(sorted)
+        forceUpdate()
     }
 
     return(
         <StyledSection>
-            <StyledBtn onClick={() => regenerateArray(ArrayGenerator(randomNumberInRange(screenCalculation()))as any)}>GENERATE NEW ARRAY</StyledBtn>
+            <StyledBtn onClick={() => regenerateArray(arrayPusher(randomNumberInRange(screenCalculation()))as any)}>GENERATE NEW ARRAY</StyledBtn>
             <label>Set the numbers of records</label>
             <SyledSelector onChange={(e) => handleChange(e.target.value)}>
                 {arr ? arr.map((option:number, key:number) =>{
                     return <StyledOption value={option} key={key}>{option}</StyledOption>
                 }): null}
             </SyledSelector>
+            <StyledBtn onClick={() => sortHandler(array)as any} >Sort</StyledBtn>
         </StyledSection>
     )
 }
@@ -56,6 +66,7 @@ const StyledBtn = styled.button`
     background-color: rgb(69, 192, 85);
     font-size: larger;
     padding: 0.5rem 2rem;
+    cursor: pointer;
 `
 
 const SyledSelector = styled.select`

@@ -1,7 +1,7 @@
 
 // calculate maximum elements that can fit on the screen
 export function screenCalculation(){
-    const screen = Math.floor(window.screen.width * 0.06);
+    const screen = Math.floor(window.screen.width * 0.0625);
     return screen
 }
 
@@ -17,8 +17,4 @@ export function arrayPusher(length:number){
         arr.push(randomNumberInRange(100) as number)
     }
     return arr
-}
-
-export function ArrayGenerator(arrLength:number){
-    return(arrayPusher(arrLength))
 }

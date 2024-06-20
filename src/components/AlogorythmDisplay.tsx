@@ -2,15 +2,15 @@
 import { useContext, useEffect } from "react"
 import {ArrayContext} from '../App'
 import styled from "styled-components";
-import { ArrayGenerator, screenCalculation, randomNumberInRange } from "../util/utils";
+import { arrayPusher, screenCalculation, randomNumberInRange } from "../util/utils";
 function AlgorythmDisplay(){
     //load context
-    const {array, setArray}:any = useContext(ArrayContext);
+    const {array, setArray, reducerValue}:any = useContext(ArrayContext);
     
     //initial array
     useEffect(() =>{
-        setArray(ArrayGenerator(screenCalculation()));
-    }, []);
+        setArray(arrayPusher(screenCalculation()));
+    },[]);
 
     return(
         <section>
@@ -31,6 +31,7 @@ const StyledContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: end;
+    overflow: hidden;
 `
 const Bar = styled.div`
     display: flex;

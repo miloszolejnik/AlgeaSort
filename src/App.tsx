@@ -3,17 +3,18 @@ import styled from 'styled-components';
 import Nav from './components/Nav';
 import AlgorythmDisplay from './components/AlogorythmDisplay';
 import OptionsForm from './components/OptionsForm';
-import { useState, createContext } from 'react';
+import { useState, createContext, useReducer } from 'react';
 
 export const ArrayContext = createContext({})
 
 function App() {
 
   const [array, setArray] = useState([]) as any;
+  const [reducerValue, forceUpdate] = useReducer(x => x +1, 0)
 
   return (
     <StyledApp className="App">
-      <ArrayContext.Provider value={{array: array, setArray: setArray}}>
+      <ArrayContext.Provider value={{array, setArray, reducerValue, forceUpdate}}>
         <Nav />
         <AlgorythmDisplay />
         <OptionsForm />
