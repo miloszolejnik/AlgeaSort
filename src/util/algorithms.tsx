@@ -13,6 +13,20 @@ export function bubble(arr:number[]){
     }while (swapped);
     return arr;
 }
-export function Quicksort(){
-    return <h1>Quicksort </h1>
-}
+export function quickSort(items:number[]):number[]{
+        if (items.length > 1) {
+          let pivot = items[0];
+          let left = [];
+          let right = [];
+          for (let i = 1; i < items.length; i++) {
+            if (items[i] < pivot) {
+              left.push(items[i]);
+            } else {
+              right.push(items[i]);
+            }
+          }
+          return quickSort(left).concat(pivot, quickSort(right));
+        } else {
+          return items;
+        }
+      }
