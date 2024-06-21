@@ -2,7 +2,7 @@
 import { useContext, useEffect } from "react"
 import {ArrayContext} from '../App'
 import styled from "styled-components";
-import { arrayPusher, screenCalculation, randomNumberInRange } from "../util/utils";
+import { arrayPusher, screenCalculation } from "../util/utils";
 function AlgorythmDisplay(){
     //load context
     const {array, setArray, reducerValue}:any = useContext(ArrayContext);
