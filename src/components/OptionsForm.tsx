@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { arrayPusher, screenCalculation, randomNumberInRange } from "../util/utils"
-import { bubble } from "../util/algorithms"
-import { useContext } from "react"
+import { bubble, quickSort } from "../util/algorithms"
+import { useContext, useEffect } from "react"
 import { ArrayContext } from "../App"
 
 function OptionsForm(){
@@ -23,19 +23,40 @@ function OptionsForm(){
         }
     };
     generateOptions();
-
+    // change the range of the array
     function handleChange(e:any | number){
         const newValue =+ (e)
         setArray(arrayPusher(newValue));
     }
-
+    // change sorting type
+    function sortTypeHandler(alg:string){
+        if('bubble'){
+            localStorage.setItem('algorithm', alg);
+        }
+        if('quickSort'){
+            localStorage.setItem('algorithm', alg)
+        }
+    }
+    // sort array using correct alg
     function sortHandler(arr:any){
-        console.log('im sorting');
-        const sorted = bubble(arr)
-        console.log(sorted)
-        setArray(sorted)
+        const alg = localStorage.getItem('algorithm')
+        if('bubble'){
+            const sorted = bubble(arr)
+            setArray(sorted)
+        }
+        if('quickSort'){
+            const sorted = quickSort(arr)
+            setArray(sorted)
+        }
         forceUpdate()
     }
+
+    useEffect(()=>{
+        const alg = localStorage.getItem('algorithm')
+        if(alg === null){
+            localStorage.setItem('algorithm', 'bubble')
+        }
+    },[])
 
     return(
         <StyledSection>
@@ -47,6 +68,11 @@ function OptionsForm(){
                 }): null}
             </SyledSelector>
             <StyledBtn onClick={() => sortHandler(array)as any} >Sort</StyledBtn>
+            <label>Sorting Algorithm </label>
+            <SyledSelector defaultValue={localStorage.getItem('algorithm') as any} onChange={(e) => sortTypeHandler(e.target.value)}>
+                <option value={'bubble'}>bubble</option>
+                <option value={'quickSort'}>quickSort</option>
+            </SyledSelector>
         </StyledSection>
     )
 }
