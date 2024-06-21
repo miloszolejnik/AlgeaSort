@@ -1,24 +1,26 @@
 import styled from "styled-components"
 import { arrayPusher, screenCalculation, randomNumberInRange } from "../util/utils"
 import { bubble, quickSort } from "../util/algorithms"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ArrayContext } from "../App"
 
 function OptionsForm(){
     //load context
     const {array, setArray, forceUpdate}:any = useContext(ArrayContext)
 
+    //select type of sorting
+    const [algorithm , setAlgorithm] = useState('bubble')
+
     function regenerateArray(value:number){
         setArray(value)
     }
-    const screen = screenCalculation();
 
     //create empty array for selector options
     const arr = [] as any
 
     //generate aviable options for the screen size
     function generateOptions(){
-        for(let i = 3; i<screen; i++){
+        for(let i = 3; i<screenCalculation(); i++){
             arr.push(i)
         }
     };
@@ -50,6 +52,20 @@ function OptionsForm(){
         }
         forceUpdate()
     }
+    //handle change to algorithm type
+    function setAlgHandler(e: any | string){
+        setAlgorithm(e)
+        localStorage.setItem('algorithm', e)
+    }
+    // Check and update local storage for last alg used by user
+    useEffect(()=>{
+        const localAlg = localStorage.getItem('algorithm');
+        if(localAlg === null){
+            localStorage.setItem('algorithm', algorithm)
+        }else{
+            setAlgorithm(localAlg)
+        }
+    },[algorithm])
 
     useEffect(()=>{
         const alg = localStorage.getItem('algorithm')
